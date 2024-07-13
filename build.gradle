@@ -129,3 +129,29 @@ repositories {
         url = "https://www.cursemaven.com"
     }
 }
+
+// Publish to github releases
+import org.kohsuke.github.GHReleaseBuilder;
+import org.kohsuke.github.GitHub;
+
+allprojects {
+  task github() {
+    onlyIf {
+      ENV.GITHUB_TOKEN
+    }
+
+    doLast {
+      def github = GitHub.connectUsingOAuth(ENV.GITHUB_TOKEN as String)
+      def repository = github.getRepository(ENV.GITHUB_REPOSITORY)
+
+      def releaseBuilder = new GHReleaseBuilder(repository, version as String)
+      releaseBuilder.name("${archivesBaseName}-${version}")
+      releaseBuilder.body(ENV.CHANGELOG ?: "No changelog provided")
+      releaseBuilder.commitish(ENV.GITHUB_REF_NAME)
+
+      def release = releaseBuilder.create()
+      release.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"), "application/java-archive");
+    }
+  }
+  github.dependsOn("build")
+}

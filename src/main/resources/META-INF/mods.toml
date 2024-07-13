@@ -1,14 +1,13 @@
 modLoader="javafml"
 loaderVersion="[${minForgeVersion},)"
 license="MIT License"
-issueTrackerURL="https://github.com/LaidBackSloth/${main}/issues"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/${curseforge}"
+issueTrackerURL="https://github.com/spectrapulse/${main}/issues"
 [[mods]]
 modId="${id}"
 version="${version}"
 displayName="${name}"
 logoFile="icon.png"
-authors="LaidBackSloth"
+authors="LaidBackSloth, spectrapulse"
 description="${description}"
 [[dependencies.${id}]]
     modId="forge"
