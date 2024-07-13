@@ -135,6 +135,8 @@ repositories {
 import org.kohsuke.github.GHReleaseBuilder;
 import org.kohsuke.github.GitHub;
 
+def ENV = System.getenv()
+
 allprojects {
   task github() {
     onlyIf {
